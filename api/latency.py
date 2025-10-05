@@ -61,6 +61,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+print("CORS middleware added successfully.")
+
 @app.get("/api/latency")
 async def health_check():
     return {"message": "Latency monitoring service is running"}
