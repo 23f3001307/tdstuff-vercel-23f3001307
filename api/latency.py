@@ -64,6 +64,10 @@ def calculate_percentile(data: List[float], percentile: float) -> float:
         return lower + (upper - lower) * (index - int(index))
 
 
+@app.options("/api/latency")
+async def options_handler():
+    return {"message": "OK"}
+
 @app.get("/api/latency")
 async def health_check():
     return {"message": "Latency monitoring service is running"}
