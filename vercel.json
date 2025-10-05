@@ -6,10 +6,10 @@
       "use": "@vercel/python"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/latency",
-      "dest": "/api/latency.py"
+      "source": "/api/latency",
+      "destination": "/api/latency.py"
     }
   ],
   "headers": [
