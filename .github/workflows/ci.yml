@@ -14,15 +14,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-        
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        
-    - name: 23f3001307@ds.study.iitm.ac.in
-      run: echo "Hello, world!"
+     - name: Set up Python
+       uses: actions/setup-python@v4
+       with:
+         python-version: '3.9'
+         
+     - name: Cache dependencies
+       uses: actions/cache@v4
+       with:
+         path: ~/.cache/pip
+         key: cache-be423c6-${{ hashFiles('requirements.txt') }}
+         restore-keys: |
+           cache-be423c6-
+         
+     - name: Install dependencies
+       run: |
+         python -m pip install --upgrade pip
+         pip install -r requirements.txt
+         
+     - name: prime-cache-be423c6
+       run: |
+         if [ -d ~/.cache/pip ]; then
+           echo "Cache hit: Dependencies were restored from cache"
+         else
+           echo "Cache miss: Dependencies were installed fresh"
+         fi
+         
+     - name: 23f3001307@ds.study.iitm.ac.in
+       run: echo "Hello, world!"
