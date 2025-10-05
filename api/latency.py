@@ -8,6 +8,18 @@ from pydantic import BaseModel
 # Initialize FastAPI app
 app = FastAPI()
 
+from starlette.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+print("CORS middleware added successfully.")
+
 class LatencyRequest(BaseModel):
     regions: List[str]
     threshold_ms: float
@@ -51,17 +63,6 @@ def calculate_percentile(data: List[float], percentile: float) -> float:
         upper = sorted_data[int(index) + 1]
         return lower + (upper - lower) * (index - int(index))
 
-from starlette.middleware.cors import CORSMiddleware
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-print("CORS middleware added successfully.")
 
 @app.get("/api/latency")
 async def health_check():
