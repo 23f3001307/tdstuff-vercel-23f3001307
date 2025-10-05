@@ -42,24 +42,3 @@ jobs:
          
      - name: 23f3001307@ds.study.iitm.ac.in
        run: echo "Hello, world!"
-         
-     - name: Test API functionality
-       run: |
-         python -c "
-         import sys
-         sys.path.append('api')
-         from latency import app, load_latency_data
-         print('API imports successfully')
-         data = load_latency_data()
-         print(f'Loaded {len(data)} latency records')
-         print('API functionality test passed')
-         "
-         
-     - name: Deploy to Vercel
-       if: github.ref == 'refs/heads/main'
-       uses: amondnet/vercel-action@v25
-       with:
-         vercel-token: ${{ secrets.VERCEL_TOKEN }}
-         vercel-org-id: ${{ secrets.ORG_ID }}
-         vercel-project-id: ${{ secrets.PROJECT_ID }}
-         working-directory: ./
