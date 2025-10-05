@@ -1,0 +1,17 @@
+{
+  "functions": {
+    "api/latency.py": {
+      "runtime": "python3.9"
+    }
+  },
+  "routes": [
+    {
+      "src": "/latency",
+      "dest": "/api/latency.py"
+    },
+    {
+      "src": "/",
+      "dest": "/api/latency.py"
+    }
+  ]
+}
